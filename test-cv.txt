@@ -1,0 +1,18 @@
+
+Nguyễn Văn A
+Email: nguyenvana@email.com
+Phone: 0123456789
+
+KINH NGHIỆM LÀM VIỆC:
+- Frontend Developer tại ABC Company (2020-2023)
+- React Developer tại XYZ Corp (2018-2020)
+
+KỸ NĂNG:
+- JavaScript, React, Node.js
+- HTML, CSS, Bootstrap
+- Git, Docker
+
+HỌC VẤN:
+- Đại học Công nghệ Thông tin (2014-2018)
+- Chứng chỉ AWS Cloud Practitioner
+    
