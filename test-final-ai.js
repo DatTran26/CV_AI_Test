@@ -3,11 +3,13 @@ import OpenAI from 'openai';
 
 // Mock API key để test (sẽ fail nhưng test được flow)
 const mockApiKey = 'sk-proj-mock-key-for-testing-123456789';
+const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o';
 
 console.log('🔍 Final AI Service Test...');
 console.log('API Key exists:', !!mockApiKey);
 console.log('API Key length:', mockApiKey?.length);
 console.log('API Key preview:', mockApiKey?.substring(0, 10) + '...');
+console.log('Model target:', model);
 
 async function testFinalAI() {
   try {
@@ -72,7 +74,7 @@ DỰ ÁN NỔI BẬT:
     console.log('🤖 Testing AI analysis with improved approach...');
     
     const response = await client.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model,
       messages: [
         {
           role: 'system',

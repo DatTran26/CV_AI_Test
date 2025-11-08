@@ -2,14 +2,16 @@
 const https = require('https');
 
 const apiKey = process.env.REACT_APP_OPENAI_API_KEY || 'sk-proj-D4QtCbKKkxHhwRuA5WlUnqYPzabo0Yf2EgW';
+const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o';
 
 console.log('🔍 Debug API Connection...');
 console.log('API Key exists:', !!apiKey);
 console.log('API Key length:', apiKey?.length);
 console.log('API Key preview:', apiKey?.substring(0, 10) + '...');
+console.log('Model target:', model);
 
 const testData = {
-  model: 'gpt-4o-mini',
+  model,
   messages: [
     {
       role: 'user',

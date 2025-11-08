@@ -2,11 +2,13 @@
 import OpenAI from 'openai';
 
 const apiKey = process.env.REACT_APP_OPENAI_API_KEY || 'sk-proj-D4QtCbKKkxHhwRuA5WlUnqYPzabo0Yf2EgW';
+const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o';
 
 console.log('🔍 Testing OpenAI SDK...');
 console.log('API Key exists:', !!apiKey);
 console.log('API Key length:', apiKey?.length);
 console.log('API Key preview:', apiKey?.substring(0, 10) + '...');
+console.log('Model target:', model);
 
 async function testOpenAISDK() {
   try {
@@ -19,7 +21,7 @@ async function testOpenAISDK() {
     console.log('📡 Making API request with SDK...');
     
     const response = await client.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model,
       messages: [
         {
           role: 'user',

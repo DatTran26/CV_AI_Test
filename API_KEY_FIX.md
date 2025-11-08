@@ -43,7 +43,7 @@ npm start
   "success": true,
   "message": "API connection successful",
   "data": {
-    "model": "gpt-4o-mini",
+    "model": "gpt-4o",
     "response": "Xin chào! Tôi là AI assistant..."
   }
 }
@@ -69,7 +69,7 @@ npm start
 
 ### **2. Kiểm tra API Key permissions:**
 
-- ✅ **Has access** to gpt-4o-mini
+- ✅ **Has access** to gpt-4o
 - ✅ **Has quota** available
 - ✅ **Not expired**
 
@@ -98,7 +98,7 @@ curl https://api.openai.com/v1/chat/completions \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "gpt-4o-mini",
+    "model": "gpt-4o",
     "messages": [{"role": "user", "content": "Hello"}],
     "max_tokens": 10
   }'
