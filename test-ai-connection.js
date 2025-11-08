@@ -4,9 +4,12 @@
 const testAIConnection = async () => {
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
   
+  const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o';
+
   console.log('🔍 Testing AI Connection...');
   console.log('🔍 API Key exists:', !!apiKey);
   console.log('🔍 API Key format:', apiKey ? `${apiKey.substring(0, 10)}...` : 'Not found');
+  console.log('🔍 Model target:', model);
   
   if (!apiKey || apiKey === 'your_openai_api_key_here') {
     console.log('❌ No valid API key found');
@@ -24,7 +27,7 @@ const testAIConnection = async () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model,
         messages: [
           {
             role: 'system',

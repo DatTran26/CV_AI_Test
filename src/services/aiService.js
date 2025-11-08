@@ -36,6 +36,7 @@ const validateFile = (file) => {
 // AI service với tích hợp OpenAI
 export const analyzeCV = async (file, selectedIndustry = null, selectedRole = null) => {
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
+  const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o';
   
   console.log('🔍 Starting CV analysis process...');
   console.log('🔍 API Key exists:', !!apiKey);
@@ -59,7 +60,7 @@ export const analyzeCV = async (file, selectedIndustry = null, selectedRole = nu
   if (apiKey && apiKey !== 'your_openai_api_key_here') {
     try {
       console.log('🚀 Using AI API for analysis...');
-      const result = await analyzeCVWithAIRetry(file, apiKey, selectedIndustry, selectedRole);
+      const result = await analyzeCVWithAIRetry(file, apiKey, model, selectedIndustry, selectedRole);
       console.log('✅ AI analysis completed successfully');
       
       // Cache the result
@@ -200,13 +201,13 @@ KHUYẾN NGHỊ CẢI THIỆN:
 };
 
 // Retry logic for API calls
-const analyzeCVWithAIRetry = async (file, apiKey, selectedIndustry = null, selectedRole = null, maxRetries = 3) => {
+const analyzeCVWithAIRetry = async (file, apiKey, model, selectedIndustry = null, selectedRole = null, maxRetries = 3) => {
   let lastError;
   
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       console.log(`🔄 Attempt ${attempt}/${maxRetries}`);
-      return await analyzeCVWithAI(file, apiKey, selectedIndustry, selectedRole);
+      return await analyzeCVWithAI(file, apiKey, model, selectedIndustry, selectedRole);
     } catch (error) {
       lastError = error;
       console.warn(`⚠️ Attempt ${attempt} failed:`, error.message);
@@ -223,7 +224,7 @@ const analyzeCVWithAIRetry = async (file, apiKey, selectedIndustry = null, selec
 };
 
 // Hàm thực tế để tích hợp với AI API (OpenAI)
-export const analyzeCVWithAI = async (file, apiKey, selectedIndustry = null, selectedRole = null) => {
+export const analyzeCVWithAI = async (file, apiKey, model, selectedIndustry = null, selectedRole = null) => {
   try {
     console.log('📁 Starting CV analysis...');
     console.log('📁 File name:', file.name);
@@ -267,7 +268,7 @@ export const analyzeCVWithAI = async (file, apiKey, selectedIndustry = null, sel
     
     // Gọi OpenAI API với text content
     const response = await client.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model,
       messages: [
         {
           role: 'system',
@@ -756,6 +757,7 @@ export const getMaxFileSize = () => {
 // Health check function
 export const checkAIServiceHealth = async () => {
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
+  const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o';
   
   if (!apiKey || apiKey === 'your_openai_api_key_here') {
     return { status: 'error', message: 'API key not configured' };
@@ -770,7 +772,7 @@ export const checkAIServiceHealth = async () => {
     
     // Simple test call
     await client.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model,
       messages: [{ role: 'user', content: 'Hello' }],
       max_tokens: 10
     });

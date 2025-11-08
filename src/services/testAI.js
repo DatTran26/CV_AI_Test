@@ -1,10 +1,12 @@
 // Test file để kiểm tra AI API
 export const testAIConnection = async () => {
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
+  const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o';
   
   console.log('🔍 Checking API Key...');
   console.log('API Key exists:', !!apiKey);
   console.log('API Key format:', apiKey ? `${apiKey.substring(0, 10)}...` : 'Not found');
+  console.log('Model target:', model);
   
   if (!apiKey || apiKey === 'your_openai_api_key_here') {
     console.log('❌ No valid API key found');
@@ -21,7 +23,7 @@ export const testAIConnection = async () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model,
         messages: [
           {
             role: 'system',
@@ -70,6 +72,7 @@ export const testAIConnection = async () => {
 // Test với CV thực tế
 export const testCVAnalysis = async (fileContent) => {
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
+  const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o';
   
   if (!apiKey || apiKey === 'your_openai_api_key_here') {
     return { success: false, message: 'No valid API key' };
@@ -97,7 +100,7 @@ export const testCVAnalysis = async (fileContent) => {
     });
     
     const response = await client.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model,
       messages: [
         {
           role: 'system',
@@ -131,7 +134,7 @@ CHỈ trả về JSON, không thêm text khác.`
           content: `Hãy phân tích CV sau:\n\n${truncatedContent}`
         }
       ],
-      max_tokens: 2000,
+      max_tokens: 4068,
       temperature: 0.3
     });
     
